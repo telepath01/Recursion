@@ -1,18 +1,28 @@
-console.log("Hello World");
 const arrayA = [5, 8, 3, 2, 6, 1, 4, 7];
-const arraySplit1 = [];
-const arraySplit2 = [];
 
-function mergeSort(arrA) {
-  console.log(arrA);
-  splitter(arrA, arrB);
-  console.log(arrB);
+function merge(left, right) {
+  let sortedArr = [];
+
+  while (left.length && right.length) {
+    if (left[0] < right[0]) {
+      sortedArr.push(left.shift());
+    } else {
+      sortedArr.push(right.shift());
+    }
+  }
+
+  return [...sortedArr, ...left, ...right];
 }
 
-mergeSort(arrayA, arraySplit1);
+function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
 
-function splitter(arr1, arr2) {
-  let testArr = arr1.slice(0, arr1.length / 2);
-  console.log(testArr);
-  console.log(arr1);
+  let mid = Math.floor(arr.length / 2);
+
+  let left = mergeSort(arr.slice(0, mid));
+  let right = mergeSort(arr.slice(mid));
+
+  return merge(left, right);
 }
+
+console.log(mergeSort(arrayA));
